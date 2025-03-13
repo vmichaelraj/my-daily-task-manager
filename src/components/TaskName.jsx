@@ -24,30 +24,13 @@ function TaskBox({ task, setTasks }) {
   return (
     <div className="task-item">
       <p>{task.value}</p>
-      <div
-        style={{
-          display: "flex",
-          gap: "10px",
-        }}
-      >
+      <div className="modify-container">
         <input
-          style={{
-            scale: 1.6,
-          }}
           type="checkbox"
           checked={task.isCompleted || false}
           onChange={handleChecked}
         ></input>
-        <div
-          style={{
-            borderRadius: "8px",
-            border: "1px solid red",
-            display: "flex",
-            width: "25px",
-            height: "25px",
-            justifyContent: "center",
-            alignItems: "center",
-          }}
+        <div className="delete-container"
           onClick={handledelete}
         >
           X

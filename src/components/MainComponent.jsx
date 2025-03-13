@@ -26,13 +26,17 @@ export default function MainComponent() {
   const untilMidnight=tomorrow-now;
 
   const midnightTimeout= setTimeout(()=>{
-    setTasks((prev)=>
-      prev.map((task)=>({...task,isCompleted:false}))
-    );
+    setTasks((prev)=>{
+      const resetTasks=prev.map((task)=>({...task,isCompleted:false}));
+      localStorage.setItem("myTasks", JSON.stringify(resetTasks));
+      return resetTasks;
+    });
     dailyResetInterval.current=setInterval(()=>{
-      setTasks((prev)=>
-        prev.map((task)=>({...task,isCompleted:false}))
-      );
+      setTasks((prev)=>{
+        const resetTasks=prev.map((task)=>({...task,isCompleted:false}));
+        localStorage.setItem("myTasks", JSON.stringify(resetTasks));
+        return resetTasks;
+      });
     },24*60*60*1000);
   },untilMidnight);
   return()=>{
@@ -48,12 +52,7 @@ export default function MainComponent() {
       <Input tasks={tasks} setTasks={setTasks} />
       <div className="status-container">
         {tasks.length === 0 ? (
-          <p
-            style={{
-              fontSize: "24px",
-              fontWeight: "500",
-            }}
-          >
+          <p>
             No tasks are there
           </p>
         ) : (
